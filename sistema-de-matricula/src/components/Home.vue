@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-header>
-      
+
     </v-header>
     <div v-if="isStudentsList">
       <StudentsView @callRegistryStudents="callRegistryStudents" />

@@ -1,6 +1,6 @@
 <template>
   <v-container class="fluid">
-      <v-card class="fluid" >
+      <v-card class="d-flex  pa-2 justify-center" >
        <H1>Consulta de Alunos</H1> 
       </v-card>
       <v-divider></v-divider>
@@ -81,8 +81,6 @@
     }),
     methods:{
       callRegistryStudents(){
-        
-
         this.$emit('callRegistryStudents');
       }
     }
