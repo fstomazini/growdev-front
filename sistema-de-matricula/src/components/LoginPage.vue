@@ -46,9 +46,9 @@
           return 'Name is required.'
         },
         value => {
-          if (value?.length <= 10) return true
+          if (value?.length <= 30) return true
 
-          return 'Name must be less than 10 characters.'
+          return 'Name must be less than 30 characters.'
         },
       ],
       email: '',
@@ -61,7 +61,7 @@
         value => {
           if (/.+@.+\..+/.test(value)) return true
 
-          return 'E-mail must be valid.'
+          return 'E-mail deve ser um e-mail valido.'
         },
       ],
     }),

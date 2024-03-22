@@ -12,6 +12,9 @@
     <div v-if="isConfig">
       <Configurations @changeVisionMode="changeVisionMode" />
     </div>
+    <div v-if="isEdit">
+      <StudentEditForm @changeVisionMode="callEditStudent" />
+    </div>
   </v-container>
 </template>
 
@@ -54,18 +57,22 @@ export default {
     ],
     isStudentsList: true,
     isNewStudent: false,
-    isConfig: false
+    isConfig: false,
+    isEdit: false
   }),
   expose: ['callConfigurationView', 'callStudentsView'],
   methods: {
     callRegistryStudents() {
-      ;(this.isStudentsList = false), (this.isNewStudent = true), (this.isConfig = false)
+      ;(this.isStudentsList = false), (this.isNewStudent = true), (this.isConfig = false), (this.isEdit = false)
     },
     callStudentsView() {
-      ;(this.isStudentsList = true), (this.isNewStudent = false), (this.isConfig = false)
+      ;(this.isStudentsList = true), (this.isNewStudent = false), (this.isConfig = false), (this.isEdit = false)
     },
     callConfigurationView() {
-      ;(this.isStudentsList = false), (this.isNewStudent = false), (this.isConfig = true)
+      ;(this.isStudentsList = false), (this.isNewStudent = false), (this.isConfig = true), (this.isEdit = false)
+    },
+    callEditStudants() {
+      ;(this.isStudentsList = false), (this.isNewStudent = false), (this.isConfig = false), (this.isEdit = tru)
     },
     changeVisionMode() {
       this.$emit('changeVisionMode')
