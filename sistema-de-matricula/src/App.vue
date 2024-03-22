@@ -10,14 +10,26 @@
         <v-list nav>
           <v-list-item prepend-icon="mdi-account-supervisor-circle" title="Alunos" value="students" v-on:click="changeToStudantesPage"></v-list-item>
           <v-list-item prepend-icon="mdi-pencil" title="Configurações" value="configurations" v-on:click="changeToConfigsPage"></v-list-item>
-          <v-list-item prepend-icon="mdi-close-circle" title="Sair" value="logout" v-on:click="triggerLogoutFunction"></v-list-item>
+          <v-list-item prepend-icon="mdi-close-circle" title="Sair" value="logout" v-on:click="loggedOff" v-show="isLogged"></v-list-item>
         </v-list>
       </v-navigation-drawer>
       <v-main>
-        <Home 
+        <div v-if="isLogged">
+          <Home 
           ref="home"
           @changeVisionMode="toggleTheme"
+          @loggedOff="loggedOff"
         />
+        </div>
+        <div v-else-if="isRegistry">
+          <RegistryPage />
+        </div>
+        <div v-else>
+          <LoginPage 
+            @loggedIn="loggedIn"
+            @registry="registry"
+          />
+        </div>
       </v-main>
     </v-layout>
     
@@ -31,6 +43,7 @@
   import { useTheme } from 'vuetify'
   import { ref } from 'vue';
   var actualPage =  "studants"
+  
   const theme = useTheme()
   const home = ref(null)
 
@@ -46,3 +59,30 @@
   }
 
 </script>
+<script>
+
+export default {
+  data () {
+      return {
+        isLogged : false,
+        isRegistry: false
+      }
+    },
+    methods:{
+      //this login methods are place holders to future login service with jwt and proper security
+      loggedIn(){
+        this.isLogged = true
+        this.isRegistry = false
+      },
+      registry(){
+        this.isLogged = false
+        this.isRegistry = true
+      },
+      loggedOff(){
+        this.isLogged = false
+        this.isRegistry = false
+      }
+    }
+}
+</script>
+

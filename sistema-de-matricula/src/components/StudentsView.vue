@@ -22,46 +22,10 @@
           </v-row>
         </v-form>
         <v-divider></v-divider>
-        <v-table>
-          <thead>
-            <tr>
-              <th class="text-left">
-                Registro Acadêmico
-              </th>
-              <th class="text-left">
-                Nome
-              </th>
-              <th class="text-left">
-                CPF
-              </th>
-              <th class="text-left">
-                Ações
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="item in students" :key="item.id">
-              <td>
-                {{item.id}}
-                </td>
-              <td>
-                {{item.name}}
-                </td>
-              <td>
-                {{item.cpf}}
-                </td>
-              <td>
-                <v-row>
-                  <v-col v-for="it in item.actions" :key="it.actionName">
-                    <v-btn v-on:click="selectAction(it)">
-                      {{it.actionName}}
-                    </v-btn>
-                  </v-col>
-                </v-row>
-              </td>
-            </tr>
-          </tbody>
-        </v-table>
+        <StudentsList 
+          :students="students"
+          @selectAction="selectAction"
+        />
       </v-card>
   </v-container>
 </template>
@@ -71,14 +35,22 @@
 </script>
 <script>
   import Request from '../services/request.js'
+
+
   export default {
-    data: () => ({
-      students: [],
-    }),
-    mounted: function (){
+    data () {
+      return {
+        students : [],
+        componentKey : 0
+      }
+    },
+    beforeMount: function (){
       this.getAllStudents();
     },
     methods:{
+      forceRerender(){
+        this.componentKey += 1;
+      },
       callRegistryStudents(){
         this.$emit('callRegistryStudents');
       },
@@ -86,6 +58,7 @@
         this.$emit('callEditStudents');
       },
     getAllStudents(){
+      var ref = this
       let options = {
         request: {
           url: "http://localhost:7969/api/students",
@@ -104,8 +77,9 @@
           
         });
         this.students = []
-        this.students = studentsList;
+        ref.students = studentsList;
         console.log(this.students)
+        
         
     },
     selectAction(action){
@@ -116,37 +90,8 @@
         console.log("lancou excluir")
       }
     },
-
-    getAllStudents2(){
-        let body = {
-                title: this.newTitle,
-                category: this.sendCategory,
-                description: this.newDescription,
-                priority: this.newPriority,
-                situation: this.newSituation,
-                limitDate: this.newLimitDate,
-                annotations: this.newAnnotations,
-            //    owner: Cookie.get('userId'),
-        }
-        let options = {
-        request: {
-          url: "http://localhost:3000/newtask",
-          payload: body,
-          extraOptions: {
-              withCredentials: true,
-              headers: {
-               // 'Authorization': Cookie.get('jwt-token')
-              }
-            }
-        },  
-      };
-        Request().postRequest(options);
-
-    },
-
-    },
-    
-  }
+  },    
+}
 </script>
 
 

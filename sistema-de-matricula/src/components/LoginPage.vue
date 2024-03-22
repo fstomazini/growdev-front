@@ -19,7 +19,7 @@
                     </v-col>
                     
                     <v-col cols="12" class="d-flex  pa-2 justify-center">
-                        <v-btn>
+                        <v-btn v-on:click="loggedIn">
                             Login
                         </v-btn>
                     </v-col>
@@ -65,5 +65,13 @@
         },
       ],
     }),
+    methods:{
+      loggedIn(){
+        this.$emit('loggedIn')
+      },
+      registry(){
+        this.$emit('registry')
+      }
+    }
   }
 </script>
