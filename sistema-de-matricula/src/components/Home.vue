@@ -19,6 +19,11 @@
 </template>
 
 <script setup>
+import { defineAsyncComponent } from 'vue'
+
+const AsyncComp = defineAsyncComponent(() =>
+  import('../components/StudentsView.vue')
+)
 </script>
 <script>
 export default {
@@ -29,32 +34,6 @@ export default {
     }
   },
   data: () => ({
-    students: [
-      {
-        id: '00000001',
-        name: 'Felipe Tomazini',
-        cpf: '000.000.000-00',
-        actions: ['editar', 'excluir']
-      },
-      {
-        id: '00000002',
-        name: 'Fulano de Tal',
-        cpf: '000.000.000-00',
-        actions: ['editar', 'excluir']
-      },
-      {
-        id: '00000003',
-        name: 'Ciclano da Silva',
-        cpf: '000.000.000-00',
-        actions: ['editar', 'excluir']
-      },
-      {
-        id: '00000004',
-        name: 'Tirano da Capadocia',
-        cpf: '000.000.000-00',
-        actions: ['editar', 'excluir']
-      }
-    ],
     isStudentsList: true,
     isNewStudent: false,
     isConfig: false,

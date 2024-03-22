@@ -46,6 +46,7 @@
     },
     beforeMount: function (){
       this.getAllStudents();
+
     },
     methods:{
       forceRerender(){

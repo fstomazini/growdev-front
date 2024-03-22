@@ -14,7 +14,7 @@
                     </v-col>
                     <v-col cols="12" md="10">
                         <v-text-field 
-                            v-model="newStudent.name" 
+                            v-model="editedStudent.name" 
                             label="Nome">
                         </v-text-field>
                     </v-col>
@@ -27,7 +27,7 @@
                     </v-col>
                     <v-col cols="12" md="10">
                         <v-text-field 
-                            v-model="newStudent.email" 
+                            v-model="editedStudent.email" 
                             label="E-mail">
                         </v-text-field>
                     </v-col>
@@ -40,7 +40,7 @@
                     </v-col>
                     <v-col cols="12" md="10">
                         <v-text-field 
-                            v-model="newStudent.ra" 
+                            v-model="editedStudent.ra" 
                             label="RA">
                         </v-text-field>
                     </v-col>
@@ -53,7 +53,7 @@
                     </v-col>
                     <v-col cols="12" md="10">
                         <v-text-field 
-                            v-model="newStudent.cpf" 
+                            v-model="editedStudent.cpf" 
                             label="CPF">
                         </v-text-field>
                     </v-col>
@@ -94,7 +94,31 @@
       },
     
   }),
+
   methods:{
+    getStudent(id){
+      var ref = this
+      let options = {
+        request: {
+          url: "http://localhost:7969/api/students/"+studentId,
+        },  
+      };
+        let studentsList = []
+        let actionEditar = {actionName : "Editar" , actionValue : "" };
+        let actionExcluir = {actionName : "Excluir" , actionValue : "" };
+        Request().getRequest(options).then( function(response){
+          response.forEach(element => {
+            actionEditar.actionValue = element.id;
+            actionExcluir.actionValue = element.id;
+            let item = {id : element.ra, name : element.name, cpf : element.cpf, actions: [actionEditar , actionExcluir]};
+            studentsList.push(item);
+          }); 
+          
+        });
+        this.students = []
+        ref.students = studentsList;
+        console.log(this.students)   
+    },
       saveStudendData(){
         
         this.callStudentsView();
@@ -103,7 +127,7 @@
         
         this.$emit('callStudentsView');
       }
-    }
+    },
   }
 
 </script>

@@ -18,7 +18,7 @@
             </tr>
           </thead>
           <tbody >
-            <tr v-for="item in students" :key="item.id">
+            <tr v-for="item in students" :key="item.id" >
               <td>
                 {{item.id}}
                 </td>
@@ -51,8 +51,11 @@ export default {
         students : {
             type : Object,
             required : true,
-            default : []
-        }
+            default : [{ id: "000000002", name: "andreia da costa", cpf: "000.000.000-01", actions : [{actionName:"Editar", actionValue: "000000002" },{actionName:"EXcluir", actionValue: "000000002"}]},
+                       { id: "000000003", name: "vitor da costa", cpf: "000.000.000-02", actions : [{actionName:"Editar", actionValue: "000000003" },{actionName:"EXcluir", actionValue: "000000003"}]},
+                       { id: "000000004", name: "Jonatan da costa", cpf: "000.000.000-03", actions : [{actionName:"Editar", actionValue: "000000004" },{actionName:"EXcluir", actionValue: "000000004"}]},
+                       { id: "000000005", name: "joao da costa", cpf: "000.000.000-04", actions : [{actionName:"Editar", actionValue: "000000005" },{actionName:"EXcluir", actionValue: "000000005"}]}]
+            }
     },
     data () {
       return {
@@ -67,8 +70,14 @@ export default {
         this.$emit('selectAction', action)
     },
   },
-  watch:{
-    
+  computed:{
+    haveChangesInStudents(){
+      if(this.students.length > 0){
+        console.log("é isso")
+
+        return this.students ;
+      }
+    }
   }    
 }
 </script>
